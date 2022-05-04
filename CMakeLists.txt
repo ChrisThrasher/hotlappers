@@ -8,11 +8,15 @@ add_subdirectory(external)
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
     add_compile_options(-Werror -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wsign-conversion)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    add_compile_options(/WX /W4)
+    add_compile_options(/WX /W4 /permissive-)
 endif()
 
+add_library(hotlappers-core STATIC src/App.cpp src/Vehicle.cpp)
+target_include_directories(hotlappers-core PUBLIC include)
+target_link_libraries(hotlappers-core PUBLIC SFML::Graphics PRIVATE ImGui-SFML::ImGui-SFML)
+
 add_executable(hotlappers src/Main.cpp)
-target_link_libraries(hotlappers PRIVATE SFML::Graphics ImGui-SFML::ImGui-SFML)
+target_link_libraries(hotlappers PRIVATE hotlappers-core)
 
 enable_testing()
 add_subdirectory(tests)

@@ -1,3 +1,12 @@
-#include <SFML/Graphics.hpp>
+#include "App.hpp"
 
-int main() { }
+#if defined(WIN32)
+extern "C" __declspec(dllexport) unsigned long NvOptimusEnablement = 1;
+extern "C" __declspec(dllexport) unsigned long AmdPowerXpressRequestHighPerformance = 1;
+#endif
+
+int main()
+{
+    App app;
+    app.run();
+}
