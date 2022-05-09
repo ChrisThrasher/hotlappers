@@ -2,7 +2,7 @@ include(FetchContent)
 
 FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 3ae85854e4674debe3b30ae2f6cf9d9926738789)
+    GIT_TAG 3301c4775595789957a0e2391985c58aeb52ceb8)
 FetchContent_MakeAvailable(SFML)
 
 FetchContent_Declare(ImGui
