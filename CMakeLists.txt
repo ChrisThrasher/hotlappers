@@ -16,7 +16,7 @@ add_library(hotlappers-core STATIC src/Vehicle.cpp)
 target_include_directories(hotlappers-core PUBLIC include)
 target_link_libraries(hotlappers-core PUBLIC SFML::Graphics)
 
-add_executable(hotlappers src/Main.cpp src/App.cpp)
+add_executable(hotlappers src/Main.cpp src/App.cpp src/Track.cpp)
 target_link_libraries(hotlappers PRIVATE hotlappers-core ImGui-SFML::ImGui-SFML)
 if(WIN32 AND BUILD_SHARED_LIBS)
     add_custom_command(TARGET hotlappers POST_BUILD

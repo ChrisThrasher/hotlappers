@@ -4,6 +4,7 @@
 #include <imgui.h>
 
 App::App()
+    : m_track(sf::Vector2f { m_window.getSize() })
 {
     m_window.setFramerateLimit(60);
     if (!ImGui::SFML::Init(m_window))
@@ -30,6 +31,7 @@ void App::run()
         update(dt);
 
         m_window.clear({ 75, 75, 75 });
+        m_window.draw(m_track);
         m_window.draw(m_vehicle);
         ImGui::SFML::Render(m_window);
         m_window.display();
@@ -65,6 +67,8 @@ void App::update(const sf::Time& dt)
 
     updateAverageFPS(dt);
 
+    m_track.update();
+
     if (m_show_imgui) {
         ImGui::Begin("Developer Tools");
         ImGui::BeginTabBar("Car Metedata");
@@ -83,6 +87,7 @@ void App::update(const sf::Time& dt)
             ImGui::Text("FPS: %.2f", m_average_fps);
             ImGui::EndTabItem();
         }
+
         ImGui::EndTabBar();
         ImGui::End();
     }
