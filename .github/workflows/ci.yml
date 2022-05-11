@@ -19,7 +19,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: sudo apt install -y xorg-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+      run: |
+        sudo apt update
+        sudo apt install -y xorg-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
     - name: Build
       run: |
         cmake -B build -DCMAKE_BUILD_TYPE=Debug
