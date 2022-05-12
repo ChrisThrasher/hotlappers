@@ -43,6 +43,12 @@ void App::update(const sf::Time& dt)
     if (m_input_state.brake)
         brake = 1.0f;
 
+    auto steering = sf::degrees(0);
+    if (m_input_state.steer_left)
+        steering = sf::degrees(-10.f);
+    if (m_input_state.steer_right)
+        steering = sf::degrees(10.f);
+
     // here we clamp the max value we can add to the accumulator
     // otherwise hanging on a breakpoint will cause the physics
     // step loop to go on for an eternity locking up the app
@@ -52,7 +58,6 @@ void App::update(const sf::Time& dt)
     else
         accumulator += sf::seconds(0.25f);
 
-    auto steering = sf::degrees(0);
     m_vehicle.update(accumulator, throttle, brake, steering);
 
     updateAverageFPS(dt);

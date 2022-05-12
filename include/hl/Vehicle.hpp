@@ -20,6 +20,7 @@ private:
     const sf::Time m_timestep;
     sf::Time m_time_budget {};
 
+    sf::Angle m_steering {};
     sf::Vector2f m_velocity {};
     sf::Angle m_yaw_rate {};
 };

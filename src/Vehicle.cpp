@@ -22,8 +22,7 @@ void Vehicle::step(float throttle, float brake, const sf::Angle& steering)
     assert(throttle <= 1.f);
     assert(brake >= 0.f);
     assert(brake <= 1.f);
-    (void)steering;
-    auto torque = sf::degrees(0);
+    m_steering = steering;
 
     const auto rotation = getRotation();
     const auto direction_facing = sf::Vector2f(std::cos(rotation.asRadians()), std::sin(rotation.asRadians()));
@@ -43,6 +42,7 @@ void Vehicle::step(float throttle, float brake, const sf::Angle& steering)
     const auto combined_force = traction_force + braking_force + drag_force + rr_force;
 
     // Velocity integration
+    auto torque = sf::degrees(0);
     m_velocity += (inverse_mass * combined_force) * timestep.asSeconds();
     m_yaw_rate += (torque * inverse_inertia) * timestep.asSeconds();
 
@@ -66,6 +66,34 @@ void Vehicle::draw(sf::RenderTarget& target, const sf::RenderStates& /*states*/)
     rectangle.setRotation(getRotation());
     rectangle.setFillColor(sf::Color::Yellow);
     target.draw(rectangle);
+
+    auto half_size = rectangle.getSize() / 2.f;
+
+    auto fl_wheel = sf::RectangleShape(half_size / 2.f);
+    fl_wheel.setOrigin(fl_wheel.getSize() / 2.f);
+    fl_wheel.setPosition(getPosition() + sf::Vector2f(half_size.x, -half_size.y));
+    fl_wheel.setRotation(m_steering);
+    fl_wheel.setFillColor(sf::Color::Black);
+    target.draw(fl_wheel);
+
+    auto fr_wheel = sf::RectangleShape(half_size / 2.f);
+    fr_wheel.setOrigin(fr_wheel.getSize() / 2.f);
+    fr_wheel.setPosition(getPosition() + sf::Vector2f(half_size.x, half_size.y));
+    fr_wheel.setRotation(m_steering);
+    fr_wheel.setFillColor(sf::Color::Black);
+    target.draw(fr_wheel);
+
+    auto bl_wheel = sf::RectangleShape(half_size / 2.f);
+    bl_wheel.setOrigin(bl_wheel.getSize() / 2.f);
+    bl_wheel.setPosition(getPosition() + sf::Vector2f(-half_size.x, -half_size.y));
+    bl_wheel.setFillColor(sf::Color::Black);
+    target.draw(bl_wheel);
+
+    auto rr_wheel = sf::RectangleShape(half_size / 2.f);
+    rr_wheel.setOrigin(rr_wheel.getSize() / 2.f);
+    rr_wheel.setPosition(getPosition() + sf::Vector2f(-half_size.x, half_size.y));
+    rr_wheel.setFillColor(sf::Color::Black);
+    target.draw(rr_wheel);
 }
 
 auto Vehicle::getPosition() const -> sf::Vector2f { return sf::Transformable::getPosition(); }
