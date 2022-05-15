@@ -1,6 +1,5 @@
 #include <hl/Vehicle.hpp>
 
-static constexpr auto timestep = sf::seconds(1.0f / 100.0f);
 static constexpr auto mass = 2220.0f;
 static constexpr auto inverse_mass = 1.f / mass;
 static constexpr auto inertia = 1048.0f;
@@ -22,7 +21,8 @@ void Vehicle::step(float throttle, float brake, const sf::Angle& steering)
     assert(throttle <= 1.f);
     assert(brake >= 0.f);
     assert(brake <= 1.f);
-    m_steering = steering;
+
+    m_steering.update(steering);
 
     const auto rotation = getRotation();
     const auto direction_facing = sf::Vector2f(std::cos(rotation.asRadians()), std::sin(rotation.asRadians()));
@@ -43,18 +43,18 @@ void Vehicle::step(float throttle, float brake, const sf::Angle& steering)
 
     // Velocity integration
     auto torque = sf::degrees(0);
-    m_velocity += (inverse_mass * combined_force) * timestep.asSeconds();
-    m_yaw_rate += (torque * inverse_inertia) * timestep.asSeconds();
+    m_velocity += (inverse_mass * combined_force) * m_timestep.asSeconds();
+    m_yaw_rate += (torque * inverse_inertia) * m_timestep.asSeconds();
 
     // Pose integration
-    move(m_velocity * timestep.asSeconds());
-    rotate(m_yaw_rate * timestep.asSeconds());
+    move(m_velocity * m_timestep.asSeconds());
+    rotate(m_yaw_rate * m_timestep.asSeconds());
 }
 
 void Vehicle::update(const sf::Time& dt, float throttle, float brake, const sf::Angle& steering)
 {
     m_time_budget += dt;
-    for (; m_time_budget >= timestep; m_time_budget -= timestep)
+    for (; m_time_budget >= m_timestep; m_time_budget -= m_timestep)
         step(throttle, brake, steering);
 }
 
@@ -72,14 +72,14 @@ void Vehicle::draw(sf::RenderTarget& target, const sf::RenderStates& /*states*/)
     auto fl_wheel = sf::RectangleShape(half_size / 2.f);
     fl_wheel.setOrigin(fl_wheel.getSize() / 2.f);
     fl_wheel.setPosition(getPosition() + sf::Vector2f(half_size.x, -half_size.y));
-    fl_wheel.setRotation(m_steering);
+    fl_wheel.setRotation(m_steering.value());
     fl_wheel.setFillColor(sf::Color::Black);
     target.draw(fl_wheel);
 
     auto fr_wheel = sf::RectangleShape(half_size / 2.f);
     fr_wheel.setOrigin(fr_wheel.getSize() / 2.f);
     fr_wheel.setPosition(getPosition() + sf::Vector2f(half_size.x, half_size.y));
-    fr_wheel.setRotation(m_steering);
+    fr_wheel.setRotation(m_steering.value());
     fr_wheel.setFillColor(sf::Color::Black);
     target.draw(fr_wheel);
 
