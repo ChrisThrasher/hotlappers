@@ -1,5 +1,7 @@
 #pragma once
 
+#include <hl/LowPassFilter.hpp>
+
 #include <SFML/Graphics.hpp>
 
 class Vehicle : public sf::Drawable, private sf::Transformable {
@@ -17,10 +19,10 @@ public:
 private:
     void step(float throttle, float brake, const sf::Angle& steering);
 
-    const sf::Time m_timestep;
+    const sf::Time m_timestep { sf::seconds(1.f / 100.f) };
     sf::Time m_time_budget {};
 
-    sf::Angle m_steering {};
+    LowPassFilter<sf::Angle> m_steering { m_timestep, 10.f, sf::degrees(0) };
     sf::Vector2f m_velocity {};
     sf::Angle m_yaw_rate {};
 };
