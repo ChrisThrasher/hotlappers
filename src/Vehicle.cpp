@@ -66,32 +66,35 @@ void Vehicle::draw(sf::RenderTarget& target, const sf::RenderStates& /*states*/)
     rectangle.setRotation(getRotation());
     rectangle.setFillColor(sf::Color::Yellow);
     target.draw(rectangle);
+    const auto transform = rectangle.getTransform();
 
     auto half_size = rectangle.getSize() / 2.f;
 
     auto fl_wheel = sf::RectangleShape(half_size / 2.f);
     fl_wheel.setOrigin(fl_wheel.getSize() / 2.f);
-    fl_wheel.setPosition(getPosition() + sf::Vector2f(half_size.x, -half_size.y));
-    fl_wheel.setRotation(m_steering.value());
+    fl_wheel.setPosition(transform.transformPoint(sf::Vector2f(half_size.x, -half_size.y) + rectangle.getOrigin()));
+    fl_wheel.setRotation(getRotation() + m_steering.value());
     fl_wheel.setFillColor(sf::Color::Black);
     target.draw(fl_wheel);
 
     auto fr_wheel = sf::RectangleShape(half_size / 2.f);
     fr_wheel.setOrigin(fr_wheel.getSize() / 2.f);
-    fr_wheel.setPosition(getPosition() + sf::Vector2f(half_size.x, half_size.y));
-    fr_wheel.setRotation(m_steering.value());
+    fr_wheel.setPosition(transform.transformPoint(sf::Vector2f(half_size.x, half_size.y) + rectangle.getOrigin()));
+    fr_wheel.setRotation(getRotation() + m_steering.value());
     fr_wheel.setFillColor(sf::Color::Black);
     target.draw(fr_wheel);
 
     auto bl_wheel = sf::RectangleShape(half_size / 2.f);
     bl_wheel.setOrigin(bl_wheel.getSize() / 2.f);
-    bl_wheel.setPosition(getPosition() + sf::Vector2f(-half_size.x, -half_size.y));
+    bl_wheel.setPosition(transform.transformPoint(sf::Vector2f(-half_size.x, -half_size.y) + rectangle.getOrigin()));
+    bl_wheel.setRotation(getRotation());
     bl_wheel.setFillColor(sf::Color::Black);
     target.draw(bl_wheel);
 
     auto rr_wheel = sf::RectangleShape(half_size / 2.f);
     rr_wheel.setOrigin(rr_wheel.getSize() / 2.f);
-    rr_wheel.setPosition(getPosition() + sf::Vector2f(-half_size.x, half_size.y));
+    rr_wheel.setPosition(transform.transformPoint(sf::Vector2f(-half_size.x, half_size.y) + rectangle.getOrigin()));
+    rr_wheel.setRotation(getRotation());
     rr_wheel.setFillColor(sf::Color::Black);
     target.draw(rr_wheel);
 }
