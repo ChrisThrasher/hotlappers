@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 project(hotlappers CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -18,6 +18,10 @@ target_link_libraries(hotlappers-core PUBLIC SFML::Graphics)
 
 add_executable(hotlappers src/Main.cpp src/App.cpp)
 target_link_libraries(hotlappers PRIVATE hotlappers-core ImGui-SFML::ImGui-SFML)
+if(WIN32 AND BUILD_SHARED_LIBS)
+    add_custom_command(TARGET hotlappers POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:hotlappers> $<TARGET_FILE_DIR:hotlappers> COMMAND_EXPAND_LISTS)
+endif()
 
 enable_testing()
 add_subdirectory(tests)
