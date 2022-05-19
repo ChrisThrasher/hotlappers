@@ -4,7 +4,7 @@ SFML-based racing game
 
 # Requirements
  * C++17
- * CMake 3.16
+ * CMake 3.21
 
 # Building & Running
 
