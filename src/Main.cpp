@@ -1,8 +1,7 @@
 #include "App.hpp"
 
-#if defined(WIN32)
-extern "C" __declspec(dllexport) unsigned long NvOptimusEnablement = 1;
-extern "C" __declspec(dllexport) unsigned long AmdPowerXpressRequestHighPerformance = 1;
-#endif
+#include <SFML/GpuPreference.hpp>
+
+SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
 int main() { App().run(); }
