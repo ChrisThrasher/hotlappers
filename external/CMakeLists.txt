@@ -1,23 +1,11 @@
-include(FetchContent)
+set(CPM_DONT_UPDATE_MODULE_PATH ON)
 
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 0785093ebc50de5df30043082611cb2430584cf0)
-FetchContent_MakeAvailable(SFML)
+CPMAddPackage("gh:SFML/SFML#0785093ebc50de5df30043082611cb2430584cf0")
 
-FetchContent_Declare(ImGui
-    GIT_REPOSITORY https://github.com/ocornut/imgui
-    GIT_TAG v1.87)
-FetchContent_MakeAvailable(ImGui)
-FetchContent_GetProperties(ImGui SOURCE_DIR IMGUI_DIR)
+CPMAddPackage("gh:ocornut/imgui@1.87")
 
-set(IMGUI_SFML_FIND_SFML OFF)
-FetchContent_Declare(ImGui-SFML
-    GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml
-    GIT_TAG 29dbc25b5a4f3e7bde4a07472395071457a7d2ee)
-FetchContent_MakeAvailable(ImGui-SFML)
+CPMAddPackage(GITHUB_REPOSITORY eliasdaler/imgui-sfml
+              GIT_TAG 29dbc25b5a4f3e7bde4a07472395071457a7d2ee
+              OPTIONS "IMGUI_DIR ${imgui_SOURCE_DIR}" "IMGUI_SFML_FIND_SFML OFF")
 
-FetchContent_Declare(Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG v3.0.1)
-FetchContent_MakeAvailable(Catch2)
+CPMAddPackage("gh:catchorg/Catch2@3.0.1")

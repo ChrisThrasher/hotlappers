@@ -3,6 +3,7 @@ project(hotlappers CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+include(cmake/CPM.cmake)
 add_subdirectory(external)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
