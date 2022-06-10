@@ -35,13 +35,13 @@ void App::run()
 
 void App::update(const sf::Time& dt)
 {
-    auto throttle = 0.0f;
+    auto throttle = 0.f;
     if (m_input_state.throttle)
-        throttle = 1.0f;
+        throttle = 1.f;
 
-    auto brake = 0.0f;
+    auto brake = 0.f;
     if (m_input_state.brake)
-        brake = 1.0f;
+        brake = 1.f;
 
     auto steering = sf::degrees(0);
     if (m_input_state.steer_left)
