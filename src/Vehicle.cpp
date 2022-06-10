@@ -1,13 +1,13 @@
 #include <hl/Vehicle.hpp>
 
-static constexpr auto mass = 2220.0f;
+static constexpr auto mass = 2220.f;
 static constexpr auto inverse_mass = 1.f / mass;
-static constexpr auto inertia = 1048.0f;
+static constexpr auto inertia = 1048.f;
 static constexpr auto inverse_inertia = 1.f / inertia;
 static constexpr auto engine_force = 50000;
-static constexpr auto braking_constant = 108891.0f;
+static constexpr auto braking_constant = 108891.f;
 static constexpr auto drag = 0.3f;
-static constexpr auto rr = 0.3f * 12.0f;
+static constexpr auto rr = 0.3f * 12.f;
 
 Vehicle::Vehicle(const sf::Vector2f& position, const sf::Angle& angle)
 {
