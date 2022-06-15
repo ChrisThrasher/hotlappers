@@ -1,6 +1,6 @@
 set(CPM_DONT_UPDATE_MODULE_PATH ON)
 
-CPMAddPackage("gh:SFML/SFML#0785093ebc50de5df30043082611cb2430584cf0")
+CPMAddPackage("gh:SFML/SFML#27a77747868b0097b63f77fa224ea047ca11ecbb")
 
 CPMAddPackage("gh:ocornut/imgui@1.87")
 
