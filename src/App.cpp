@@ -1,5 +1,8 @@
 #include "App.hpp"
 
+#include <imgui-SFML.h>
+#include <imgui.h>
+
 App::App()
 {
     m_window.setFramerateLimit(60);
