@@ -1,50 +1,36 @@
 #include <hl/Vehicle.hpp>
 
-static constexpr auto mass = 2220.f;
-static constexpr auto inverse_mass = 1.f / mass;
-static constexpr auto inertia = 1048.f;
-static constexpr auto inverse_inertia = 1.f / inertia;
-static constexpr auto engine_force = 50000;
-static constexpr auto braking_constant = 108891.f;
-static constexpr auto drag = 0.3f;
-static constexpr auto rr = 0.3f * 12.f;
-
 Vehicle::Vehicle(const sf::Vector2f& position, const sf::Angle& angle)
 {
     setPosition(position);
     setRotation(angle);
 }
 
-void Vehicle::step(float throttle, float brake, const sf::Angle& steering)
+void Vehicle::step(const float throttle, const float brake, const sf::Angle& steering)
 {
-    assert(throttle >= 0.f);
-    assert(throttle <= 1.f);
-    assert(brake >= 0.f);
-    assert(brake <= 1.f);
+    assert(throttle >= 0);
+    assert(throttle <= 1);
+    assert(brake >= 0);
+    assert(brake <= 1);
 
     m_steering.update(steering);
 
-    const auto rotation = getRotation();
-    const auto direction_facing = sf::Vector2f(std::cos(rotation.asRadians()), std::sin(rotation.asRadians()));
-    const auto speed = m_velocity.length();
-    sf::Vector2f direction_velocity;
-    if (m_velocity != sf::Vector2f())
-        direction_velocity = m_velocity.normalized();
+    const auto heading = sf::Vector2f(1, getRotation());
+    const auto speed = m_velocity.x > 0 ? m_velocity.length() : -m_velocity.length();
 
-    if (speed < 0.2f)
-        m_velocity = {};
+    // Force accumulation
+    const auto throttle_force = 100 * throttle * heading;
+    const auto resistence_force = -1.f * m_velocity;
+    const auto braking_force = -8.f * brake * speed * heading;
+    const auto accel = throttle_force + resistence_force + braking_force;
 
-    // Straight line forces
-    const auto traction_force = direction_facing * (engine_force * throttle);
-    const auto braking_force = -direction_velocity * (braking_constant * brake);
-    const auto drag_force = -drag * m_velocity * speed;
-    const auto rr_force = m_velocity * -rr;
-    const auto combined_force = traction_force + braking_force + drag_force + rr_force;
+    const auto steering_torque = 0.1f * m_steering.value() * speed;
+    const auto resistence_torque = -m_yaw_rate;
+    const auto yaw_accel = steering_torque + resistence_torque;
 
     // Velocity integration
-    auto torque = sf::degrees(0);
-    m_velocity += (inverse_mass * combined_force) * m_timestep.asSeconds();
-    m_yaw_rate += (torque * inverse_inertia) * m_timestep.asSeconds();
+    m_velocity += accel * m_timestep.asSeconds();
+    m_yaw_rate += yaw_accel * m_timestep.asSeconds();
 
     // Pose integration
     move(m_velocity * m_timestep.asSeconds());

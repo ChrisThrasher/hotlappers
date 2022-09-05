@@ -24,7 +24,7 @@ TEST_CASE("Vehicle class")
     SECTION("Drive forward then brake")
     {
         Vehicle vehicle({}, {});
-        vehicle.update(sf::seconds(1), 1.f, {}, {});
+        vehicle.update(sf::seconds(1), 1, {}, {});
         CHECK(vehicle.getPosition().x > 0.f);
         CHECK(vehicle.getPosition().y == 0.f);
         CHECK(vehicle.getVelocity().x > 0.f);
@@ -32,10 +32,10 @@ TEST_CASE("Vehicle class")
         CHECK(vehicle.getRotation() == sf::degrees(0));
         CHECK(vehicle.getYawRate() == sf::degrees(0));
 
-        vehicle.update(sf::seconds(1), {}, 1.f, {});
+        vehicle.update(sf::seconds(1), {}, 1, {});
         CHECK(vehicle.getPosition().x > 0.f);
         CHECK(vehicle.getPosition().y == 0.f);
-        CHECK(vehicle.getVelocity().x == Approx(0).margin(0.001));
+        CHECK(vehicle.getVelocity().x == Approx(0).margin(0.1));
         CHECK(vehicle.getVelocity().y == 0.f);
         CHECK(vehicle.getRotation() == sf::degrees(0));
         CHECK(vehicle.getYawRate() == sf::degrees(0));
