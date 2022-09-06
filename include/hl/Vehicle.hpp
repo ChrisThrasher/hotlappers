@@ -8,7 +8,7 @@ class Vehicle : public sf::Drawable, private sf::Transformable {
 public:
     Vehicle(const sf::Vector2f& position, sf::Angle angle);
 
-    void update(const sf::Time& dt, float throttle, float brake, sf::Angle steering);
+    void update(sf::Time dt, float throttle, float brake, sf::Angle steering);
     void draw(sf::RenderTarget& target, const sf::RenderStates& states) const override;
 
     auto getPosition() const -> sf::Vector2f;

@@ -24,6 +24,6 @@ public:
 
 private:
     void handleInputs(const sf::Event& event);
-    void update(const sf::Time& dt);
-    void updateAverageFPS(const sf::Time& dt);
+    void update(sf::Time dt);
+    void updateAverageFPS(sf::Time dt);
 };

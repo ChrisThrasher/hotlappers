@@ -36,7 +36,7 @@ void App::run()
     }
 }
 
-void App::update(const sf::Time& dt)
+void App::update(const sf::Time dt)
 {
     auto throttle = 0.f;
     if (m_input_state.throttle)
@@ -88,7 +88,7 @@ void App::update(const sf::Time& dt)
     }
 }
 
-void App::updateAverageFPS(const sf::Time& dt)
+void App::updateAverageFPS(const sf::Time dt)
 {
     static auto frame_counter = 0;
     static auto dt_sum = sf::Time::Zero;
