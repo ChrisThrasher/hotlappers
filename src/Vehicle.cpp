@@ -37,7 +37,7 @@ void Vehicle::step(const float throttle, const float brake, const sf::Angle stee
     rotate(m_yaw_rate * m_timestep.asSeconds());
 }
 
-void Vehicle::update(const sf::Time dt, float throttle, float brake, const sf::Angle steering)
+void Vehicle::update(const sf::Time dt, const float throttle, const float brake, const sf::Angle steering)
 {
     m_time_budget += dt;
     for (; m_time_budget >= m_timestep; m_time_budget -= m_timestep)
@@ -54,7 +54,7 @@ void Vehicle::draw(sf::RenderTarget& target, const sf::RenderStates& /*states*/)
     target.draw(rectangle);
     const auto transform = rectangle.getTransform();
 
-    auto half_size = rectangle.getSize() / 2.f;
+    const auto half_size = rectangle.getSize() / 2.f;
 
     auto fl_wheel = sf::RectangleShape(half_size / 2.f);
     fl_wheel.setOrigin(fl_wheel.getSize() / 2.f);

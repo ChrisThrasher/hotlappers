@@ -7,7 +7,7 @@
 template <typename T>
 class LowPassFilter {
 public:
-    LowPassFilter(const sf::Time dt, float cutoff_frequency, T initial_value)
+    LowPassFilter(const sf::Time dt, const float cutoff_frequency, const T initial_value)
         : m_dt(dt)
         , m_cutoff_frequency(cutoff_frequency)
         , m_previous(initial_value)
