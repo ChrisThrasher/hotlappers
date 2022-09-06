@@ -16,7 +16,13 @@ void Vehicle::step(const float throttle, const float brake, const sf::Angle stee
     m_steering.update(steering);
 
     const auto heading = sf::Vector2f(1, getRotation());
-    const auto speed = m_velocity.x > 0 ? m_velocity.length() : -m_velocity.length();
+    const auto speed = [this, heading]() {
+        // Get signed, longitudinal speed
+        const auto longitudinal_velocity = m_velocity.projectedOnto(heading);
+        if (longitudinal_velocity.dot(heading) > 0)
+            return longitudinal_velocity.length();
+        return -longitudinal_velocity.length();
+    }();
 
     // Force accumulation
     const auto throttle_force = 100 * throttle * heading;
@@ -25,7 +31,7 @@ void Vehicle::step(const float throttle, const float brake, const sf::Angle stee
     const auto accel = throttle_force + resistence_force + braking_force;
 
     const auto steering_torque = 0.1f * m_steering.value() * speed;
-    const auto resistence_torque = -m_yaw_rate;
+    const auto resistence_torque = -2 * m_yaw_rate;
     const auto yaw_accel = steering_torque + resistence_torque;
 
     // Velocity integration
