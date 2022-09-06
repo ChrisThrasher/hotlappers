@@ -2,7 +2,6 @@
 
 #include <catch2/catch_all.hpp>
 
-using Approx = Catch::Approx;
 using namespace sf::Literals;
 
 namespace sf {
@@ -36,7 +35,7 @@ TEST_CASE("Vehicle class")
         vehicle.update(sf::seconds(1), {}, 1, {});
         CHECK(vehicle.getPosition().x > 0.f);
         CHECK(vehicle.getPosition().y == 0.f);
-        CHECK(vehicle.getVelocity().x == Approx(0).margin(0.1));
+        CHECK(vehicle.getVelocity().x == Catch::Approx(0).margin(0.1));
         CHECK(vehicle.getVelocity().y == 0.f);
         CHECK(vehicle.getRotation() == 0_deg);
         CHECK(vehicle.getYawRate() == 0_deg);
