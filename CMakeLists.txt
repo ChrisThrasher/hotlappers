@@ -29,4 +29,6 @@ add_custom_target(format
 add_custom_target(tidy
     COMMAND clang-tidy -p ${CMAKE_BINARY_DIR} `git ls-files *.cpp`
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-add_custom_target(run COMMAND hotlappers)
+add_custom_target(run
+    COMMAND hotlappers
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})

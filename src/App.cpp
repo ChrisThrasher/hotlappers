@@ -14,7 +14,13 @@ App::~App() { ImGui::SFML::Shutdown(m_window); }
 
 void App::run()
 {
-    sf::Clock clock;
+    auto track_texture = sf::Texture();
+    if (!track_texture.loadFromFile("data/track.png"))
+        throw std::runtime_error("Failed to load track image");
+    auto track = sf::Sprite(track_texture);
+    track.setScale({ 0.5f, 0.5f });
+
+    auto clock = sf::Clock();
     while (m_window.isOpen()) {
         const auto dt = clock.restart();
 
@@ -29,7 +35,8 @@ void App::run()
         ImGui::SFML::Update(m_window, dt);
         update(dt);
 
-        m_window.clear({ 75, 75, 75 });
+        m_window.clear({ 0, 154, 23 });
+        m_window.draw(track);
         m_window.draw(m_vehicle);
         ImGui::SFML::Render(m_window);
         m_window.display();
