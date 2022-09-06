@@ -1,4 +1,4 @@
-#include "App.hpp"
+#include <hl/App.hpp>
 
 #include <SFML/GpuPreference.hpp>
 
