@@ -20,9 +20,9 @@ private:
     void step(float throttle, float brake, sf::Angle steering);
 
     const sf::Time m_timestep { sf::seconds(1.f / 100.f) };
-    sf::Time m_time_budget {};
+    sf::Time m_time_budget;
 
     LowPassFilter<sf::Angle> m_steering { m_timestep, 10, sf::degrees(0) };
-    sf::Vector2f m_velocity {};
-    sf::Angle m_yaw_rate {};
+    sf::Vector2f m_velocity;
+    sf::Angle m_yaw_rate;
 };
