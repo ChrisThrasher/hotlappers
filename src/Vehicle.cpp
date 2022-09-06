@@ -46,7 +46,7 @@ void Vehicle::update(const sf::Time dt, float throttle, float brake, const sf::A
 
 void Vehicle::draw(sf::RenderTarget& target, const sf::RenderStates& /*states*/) const
 {
-    auto rectangle = sf::RectangleShape({ 128, 64 });
+    auto rectangle = sf::RectangleShape({ 64, 32 });
     rectangle.setOrigin(rectangle.getSize() / 2.f);
     rectangle.setPosition(getPosition());
     rectangle.setRotation(getRotation());
