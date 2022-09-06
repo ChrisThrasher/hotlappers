@@ -14,6 +14,12 @@ App::~App() { ImGui::SFML::Shutdown(m_window); }
 
 void App::run()
 {
+    auto grass_texture = sf::Texture();
+    if (!grass_texture.loadFromFile("data/grass.jpg"))
+        throw std::runtime_error("Failed to load grass image");
+    auto grass = sf::Sprite(grass_texture);
+    grass.setScale({ 1.5f, 1.5f });
+
     auto track_texture = sf::Texture();
     if (!track_texture.loadFromFile("data/track.png"))
         throw std::runtime_error("Failed to load track image");
@@ -36,7 +42,8 @@ void App::run()
         ImGui::SFML::Update(m_window, dt);
         update(dt);
 
-        m_window.clear({ 0, 154, 23 });
+        m_window.clear(sf::Color::Cyan);
+        m_window.draw(grass);
         m_window.draw(track);
         m_window.draw(m_vehicle);
         ImGui::SFML::Render(m_window);
