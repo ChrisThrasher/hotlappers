@@ -3,6 +3,7 @@
 #include <catch2/catch_all.hpp>
 
 using namespace sf::Literals;
+using namespace std::literals;
 
 namespace sf {
 std::ostream& operator<<(std::ostream& out, const Vector2f& v) { return out << '(' << v.x << ", " << v.y << ')'; }
@@ -24,7 +25,7 @@ TEST_CASE("Vehicle class")
     SECTION("Drive forward then brake")
     {
         Vehicle vehicle({}, {});
-        vehicle.update(sf::seconds(1), 1, {}, {});
+        vehicle.update(1s, 1, {}, {});
         CHECK(vehicle.getPosition().x > 0.f);
         CHECK(vehicle.getPosition().y == 0.f);
         CHECK(vehicle.getVelocity().x > 0.f);
@@ -32,7 +33,7 @@ TEST_CASE("Vehicle class")
         CHECK(vehicle.getRotation() == 0_deg);
         CHECK(vehicle.getYawRate() == 0_deg);
 
-        vehicle.update(sf::seconds(1), {}, 1, {});
+        vehicle.update(1s, {}, 1, {});
         CHECK(vehicle.getPosition().x > 0.f);
         CHECK(vehicle.getPosition().y == 0.f);
         CHECK(vehicle.getVelocity().x == Catch::Approx(0).margin(0.1));
