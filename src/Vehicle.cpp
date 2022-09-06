@@ -1,12 +1,12 @@
 #include <hl/Vehicle.hpp>
 
-Vehicle::Vehicle(const sf::Vector2f& position, const sf::Angle& angle)
+Vehicle::Vehicle(const sf::Vector2f& position, const sf::Angle angle)
 {
     setPosition(position);
     setRotation(angle);
 }
 
-void Vehicle::step(const float throttle, const float brake, const sf::Angle& steering)
+void Vehicle::step(const float throttle, const float brake, const sf::Angle steering)
 {
     assert(throttle >= 0);
     assert(throttle <= 1);
@@ -37,7 +37,7 @@ void Vehicle::step(const float throttle, const float brake, const sf::Angle& ste
     rotate(m_yaw_rate * m_timestep.asSeconds());
 }
 
-void Vehicle::update(const sf::Time& dt, float throttle, float brake, const sf::Angle& steering)
+void Vehicle::update(const sf::Time& dt, float throttle, float brake, const sf::Angle steering)
 {
     m_time_budget += dt;
     for (; m_time_budget >= m_timestep; m_time_budget -= m_timestep)

@@ -6,9 +6,9 @@
 
 class Vehicle : public sf::Drawable, private sf::Transformable {
 public:
-    Vehicle(const sf::Vector2f& position, const sf::Angle& angle);
+    Vehicle(const sf::Vector2f& position, sf::Angle angle);
 
-    void update(const sf::Time& dt, float throttle, float brake, const sf::Angle& steering);
+    void update(const sf::Time& dt, float throttle, float brake, sf::Angle steering);
     void draw(sf::RenderTarget& target, const sf::RenderStates& states) const override;
 
     auto getPosition() const -> sf::Vector2f;
@@ -17,7 +17,7 @@ public:
     auto getYawRate() const -> sf::Angle;
 
 private:
-    void step(float throttle, float brake, const sf::Angle& steering);
+    void step(float throttle, float brake, sf::Angle steering);
 
     const sf::Time m_timestep { sf::seconds(1.f / 100.f) };
     sf::Time m_time_budget {};
