@@ -25,12 +25,12 @@ void Vehicle::step(const float throttle, const float brake, const sf::Angle stee
     }();
 
     // Force accumulation
-    const auto throttle_force = 100 * throttle * heading;
-    const auto resistence_force = -1.f * m_velocity;
-    const auto braking_force = -8.f * brake * speed * heading;
+    const auto throttle_force = 200 * throttle * heading;
+    const auto resistence_force = -2.f * m_velocity;
+    const auto braking_force = -5.f * brake * speed * heading;
     const auto accel = throttle_force + resistence_force + braking_force;
 
-    const auto steering_torque = 0.1f * m_steering.value() * speed;
+    const auto steering_torque = 0.2f * m_steering.value() * speed;
     const auto resistence_torque = -2 * m_yaw_rate;
     const auto yaw_accel = steering_torque + resistence_torque;
 
