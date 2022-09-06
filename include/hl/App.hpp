@@ -7,7 +7,7 @@ class App {
                                 "Hotlappers [indev]",
                                 sf::Style::Default ^ sf::Style::Resize };
     Vehicle m_vehicle { sf::Vector2f(m_window.getSize()) / 2.f, sf::Angle::Zero };
-    float m_average_fps { 0.f };
+    float m_average_fps { 0 };
     bool m_show_imgui { true };
     struct {
         bool throttle { false };

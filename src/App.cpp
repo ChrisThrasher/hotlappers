@@ -48,9 +48,9 @@ void App::update(const sf::Time dt)
 
     auto steering = sf::degrees(0);
     if (m_input_state.steer_left)
-        steering = sf::degrees(-10.f);
+        steering = sf::degrees(-10);
     if (m_input_state.steer_right)
-        steering = sf::degrees(10.f);
+        steering = sf::degrees(10);
 
     // here we clamp the max value we can add to the accumulator
     // otherwise hanging on a breakpoint will cause the physics
