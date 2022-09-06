@@ -3,7 +3,7 @@
 #include <hl/Vehicle.hpp>
 
 class App {
-    sf::RenderWindow m_window { sf::VideoMode({ 800, 800 }),
+    sf::RenderWindow m_window { sf::VideoMode({ 800, 600 }),
                                 "Hotlappers [indev]",
                                 sf::Style::Default ^ sf::Style::Resize };
     Vehicle m_vehicle { sf::Vector2f(m_window.getSize()) / 2.f, sf::Angle::Zero };

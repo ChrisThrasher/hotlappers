@@ -18,6 +18,7 @@ void App::run()
     if (!track_texture.loadFromFile("data/track.png"))
         throw std::runtime_error("Failed to load track image");
     auto track = sf::Sprite(track_texture);
+    track.setOrigin({ 0, 200 });
     track.setScale({ 0.5f, 0.5f });
 
     auto clock = sf::Clock();
