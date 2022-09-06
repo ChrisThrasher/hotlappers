@@ -30,7 +30,7 @@ void Vehicle::step(const float throttle, const float brake, const sf::Angle stee
     const auto braking_force = -5.f * brake * speed * heading;
     const auto accel = throttle_force + resistence_force + braking_force;
 
-    const auto steering_torque = 0.2f * m_steering.value() * speed;
+    const auto steering_torque = 0.4f * m_steering.value() * speed;
     const auto resistence_torque = -2 * m_yaw_rate;
     const auto yaw_accel = steering_torque + resistence_torque;
 
@@ -52,7 +52,7 @@ void Vehicle::update(const sf::Time dt, const float throttle, const float brake,
 
 void Vehicle::draw(sf::RenderTarget& target, const sf::RenderStates& /*states*/) const
 {
-    auto rectangle = sf::RectangleShape({ 64, 32 });
+    auto rectangle = sf::RectangleShape({ 48, 24 });
     rectangle.setOrigin(rectangle.getSize() / 2.f);
     rectangle.setPosition(getPosition());
     rectangle.setRotation(getRotation());
