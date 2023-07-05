@@ -24,5 +24,7 @@ private:
 
     LowPassFilter<sf::Angle> m_steering { m_timestep, 10.f, sf::degrees(0) };
     sf::Vector2f m_velocity {};
-    sf::Angle m_yaw_rate {};
+    sf::Angle m_angular_velocity {};
+
+    sf::RectangleShape m_body_shape;
 };
